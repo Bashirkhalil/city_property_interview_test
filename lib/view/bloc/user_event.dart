@@ -12,3 +12,9 @@ class DeleteUserEvent extends UserEvent {
   User user ;
   DeleteUserEvent(this.user);
 }
+
+
+class NewUserEvent extends UserEvent {
+  User user ;
+  NewUserEvent(this.user);
+}

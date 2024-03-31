@@ -1,3 +1,4 @@
+import 'package:city_property_flutter_interview_test/view/screen/user_new_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -38,7 +39,10 @@ class _UserListPageState extends State<UserListPage> {
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const UserNewPage()));
+
+          },
           child: const Icon(Icons.add),
         ),
         appBar: AppBar(

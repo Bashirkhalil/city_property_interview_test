@@ -25,3 +25,11 @@ class UserDeletedSuccessState extends UserState {
   String msg ;
   UserDeletedSuccessState({required this.msg});
 }
+
+
+//  user new success
+//------------------------------------------------------------
+class UserCreateSuccessState extends UserState {
+  String msg ;
+  UserCreateSuccessState({required this.msg});
+}
