@@ -79,16 +79,20 @@ class _UserListPageState extends State<UserListPage> {
 
               if (state is UserSuccessState) {
                 print("Data -> ${state.userList.length}");
-                print("Data -> ${state.userList[0].title}");
+              //  print("Data -> ${state.userList[0].title}");
+
+                if(state.userList.isEmpty){
+                return const Center(
+                  child:Text('No Data available ') ,
+                )  ;
+                }
 
                 return buildUserList(state.userList);
               }
 
               return Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    mUserBloc.add(GetUserEvent("mikehsch@email.com"));
-                  },
+                  onPressed: () => callAPIList() ,
                   child: const Text('Refresh the page '),
                 ),
               );

@@ -17,18 +17,23 @@ class UserController implements UserRepository {
 
   @override
   Future<List<User>> userList(String email) async {
-    try {
-      var url = "/read.php?email=$email";
-      final response = await _dio.get(mBaseURl + url);
-      if (response.statusCode == 200) {
-        final List<dynamic> jsonData = response.data;
-        return jsonData.map((e) => User.fromJson(e)).toList();
-      } else {
-        throw Exception('Failed to load user');
+    var url = "/read.php?email=$email";
+    final response = await _dio.get(mBaseURl + url);
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonData = response.data;
+
+      if(jsonData.isNotEmpty && jsonData.length ==1 ){
+        if((jsonData[0] as Map<String,dynamic>).containsKey("message")){
+          return List.empty();
+        }
       }
-    } catch (e) {
-      throw Exception('Failed to load user: $e');
+
+      return jsonData.map((e) => User.fromJson(e)).toList();
+    } else {
+      throw Exception('Failed to load user');
     }
+
+
   }
 
   @override
