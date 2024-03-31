@@ -46,8 +46,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       try{
         emit(UserLoadingState());
         var result =  await mUserController.newUser(event.user);
-        emit(UserCreateSuccessState(msg: result.body));
+        emit(UserCreateSuccessState(msg: result.toString()));
       }catch(e){
+        print(e);
         emit(UserErrorState(onError: "Error occur -> $e"));
       }
 

@@ -97,7 +97,7 @@ class _UserListPageState extends State<UserListPage> {
 
   buildUserList(List<User> userList) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
