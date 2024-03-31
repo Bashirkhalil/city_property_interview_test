@@ -25,6 +25,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     });
 
+
+    // delete Event
+    on<DeleteUserEvent>((event, emit) async {
+      try{
+        emit(UserLoadingState());
+        var result =  await mUserController.deleteUser(event.user);
+
+        emit(UserDeletedSuccessState(msg: result));
+
+      }catch(e){
+        emit(UserErrorState(onError: "Error occur -> $e"));
+      }
+    });
+
+
   }
 
 }

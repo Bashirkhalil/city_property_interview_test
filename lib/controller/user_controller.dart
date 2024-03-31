@@ -6,6 +6,7 @@ import '../model/user_article.dart';
 
 abstract class UserRepository {
   Future<List<User>> userList(String email);
+  dynamic deleteUser(User user);
 }
 
 class UserController implements UserRepository {
@@ -24,5 +25,19 @@ class UserController implements UserRepository {
     }
 
   }
+
+  @override
+  deleteUser(User user) async {
+    var url = "/delete.php?email=${user.email}&id=${user.id}";
+    final response = await http.delete(Uri.parse(mBaseURl + url));
+    if (response.statusCode == 200) {
+      var mResponse  =  json.decode(response.body)[0]["message"];
+      return mResponse ;
+    } else {
+      throw Exception('Failed to load news');
+    }
+  }
+
+
 
 }

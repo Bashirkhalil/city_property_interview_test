@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
+import '../../injection_container.dart';
 import '../../model/user_article.dart';
 import '../bloc/user_bloc.dart';
 import '../bloc/user_event.dart';
@@ -17,15 +18,23 @@ class UserListPage extends StatefulWidget {
 }
 
 class _UserListPageState extends State<UserListPage> {
+
+  var mUserBloc = sl<UserBloc>();
+
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      callAPIList();
+    });
+
   }
+
+  callAPIList() =>  mUserBloc.add(GetUserEvent("mikehsch@email.com"));
 
   @override
   Widget build(BuildContext context) {
-    var mUserCubit = BlocProvider.of<UserBloc>(context);
-    mUserCubit.add(GetUserEvent("mikehsch@email.com"));
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -34,10 +43,23 @@ class _UserListPageState extends State<UserListPage> {
         ),
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text("User List"),
+          title: const Text("User List"),
         ),
         body: BlocConsumer<UserBloc, UserState>(
-            listener: (context, state) {} ,
+            listener: (context, state) {
+
+              if (state is UserDeletedSuccessState && state.msg=="successful") {
+                  Fluttertoast.showToast(
+                      msg: "User Deleted successfully",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                }
+
+            },
             builder: (context, state) {
               print("state is ");
               print(state);
@@ -46,17 +68,21 @@ class _UserListPageState extends State<UserListPage> {
                 return const Center(child: CircularProgressIndicator());
               }
 
+              if (state is UserDeletedSuccessState && state.msg=="successful") {
+                callAPIList();
+              }
+
               if (state is UserSuccessState) {
                 print("Data -> ${state.userList.length}");
                 print("Data -> ${state.userList[0].title}");
 
-                return buildUserList(mUserCubit, state.userList);
+                return buildUserList(state.userList);
               }
 
               return Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    mUserCubit.add(GetUserEvent("mikehsch@email.com"));
+                    mUserBloc.add(GetUserEvent("mikehsch@email.com"));
                   },
                   child: const Text('Refresh the page '),
                 ),
@@ -64,7 +90,7 @@ class _UserListPageState extends State<UserListPage> {
             }));
   }
 
-  buildUserList(mUserCubit, List<User> userList) {
+  buildUserList(List<User> userList) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       child: ListView.separated(
@@ -88,13 +114,14 @@ class _UserListPageState extends State<UserListPage> {
                         actions: [
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pop(); // Close dialog
+                              Navigator.of(context).pop();
                             },
                             child: const Text("Cancel"),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pop(); // Close dialog
+                              Navigator.of(context).pop();
+                              deleteTheCurrentUser(user);
                             },
                             child: const Text("Delete"),
                           ),
@@ -119,7 +146,7 @@ class _UserListPageState extends State<UserListPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pop(); // Close dialog
+                              Navigator.of(context).pop();
                             },
                             child: const Text("Edit"),
                           ),
@@ -131,6 +158,8 @@ class _UserListPageState extends State<UserListPage> {
           }),
     );
   }
+
+  void deleteTheCurrentUser(User user) => mUserBloc.add(DeleteUserEvent(user));
 
 
 }

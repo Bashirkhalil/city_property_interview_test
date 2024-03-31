@@ -18,3 +18,10 @@ class UserSuccessState extends UserState {
 }
 
 
+
+//  user Delete success
+//------------------------------------------------------------
+class UserDeletedSuccessState extends UserState {
+  String msg ;
+  UserDeletedSuccessState({required this.msg});
+}
