@@ -1,16 +1,56 @@
-# city_property_flutter_interview_test
+## :slightly_smiling_face: CRUD application 
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## The Functional impementation  ( there are 5 branches imp ):
 
-A few resources to get you started if this is your first Flutter project:
+1-main branches .
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2-edit_user_implementation .
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3-add_new_luser_implementation .
+
+4-delete_luser_implementation .
+
+5-user_list_implementation .
+
+
+
+
+
+## This project is a starting point for a Flutter application with MVC design patten ( Model View Controller ) .
+
+1- MVC design pattern .
+
+2- HTTP for endpoint connection .
+
+3- BLOC for state management .
+
+4- get_It for dependancey injection .
+
+5- flutterToast lib for toast preview .
+
+
+
+
+💚 1- User list Screen ( Read Users )
+
+    in this part  just show the avalible user list from the database .
+
+💚 2- Add  user ( creation ) :
+
+    if we need to add anew user user .
+    we can go back and refresh the user we added recently 
+
+
+💚 3- Delete User  :
+
+    if we need to delete the current usre with ID we need to get confrimation from the user after that we deleted . 
+
+💚 4- Update User sc :
+
+    if we need to update the exist user
+
+
+- actually   :fist_raised: i didn't focus on the design tow much but this need more time and UI enhancement  :sunglasses .
+- For more info : :speech_balloon: My Phone number : +971506341673 - :speech_balloon: Email : bashirDev2024@gmailcom   .
