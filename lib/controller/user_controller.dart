@@ -8,7 +8,8 @@ import '../model/user_article.dart';
 abstract class UserRepository {
   Future<List<User>> userList(String email);
   dynamic deleteUser(User user);
-  Future<http.Response> newUser(User user);
+  newUser(User user);
+  updateUser(User user);
 }
 
 class UserController implements UserRepository {
@@ -40,7 +41,7 @@ class UserController implements UserRepository {
   }
 
   @override
-  Future<http.Response> newUser(User user) async {
+  newUser(User user) async {
     const String url = "/create.php";
 
     final response = await http.post(
@@ -57,11 +58,29 @@ class UserController implements UserRepository {
       }),
     );
 
-    print("response is");
-    print(response.statusCode);
-    return response ;
+    if (response.statusCode == 200) {
+      print("response is");
+      print(response.statusCode);
+      return response ;
+    }else{
+      throw Exception('Failed to load news');
+    }
 
   }
+
+  @override
+  updateUser(User user) async {
+    var url = "/edit.php?email=${user.email}&id=${user.id}&description=${user.description}&title=${user.title}&img_link=${user.img_link}";
+    final response = await http.patch(Uri.parse(mBaseURl + url));
+    if (response.statusCode == 200) {
+      var mResponse  =  json.decode(response.body)[0]["message"];
+      return mResponse ;
+    } else {
+      throw Exception('Failed to load news');
+    }
+  }
+
+
 
 
 }

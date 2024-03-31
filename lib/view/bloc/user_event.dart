@@ -18,3 +18,10 @@ class NewUserEvent extends UserEvent {
   User user ;
   NewUserEvent(this.user);
 }
+
+
+
+class UpdateUserEvent extends UserEvent {
+  User user ;
+  UpdateUserEvent(this.user);
+}

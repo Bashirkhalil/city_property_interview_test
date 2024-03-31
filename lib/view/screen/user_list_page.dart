@@ -1,3 +1,4 @@
+import 'package:city_property_flutter_interview_test/view/screen/user_edit_page.dart';
 import 'package:city_property_flutter_interview_test/view/screen/user_new_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,6 +152,7 @@ class _UserListPageState extends State<UserListPage> {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
+                              goToEditPage(user);
                             },
                             child: const Text("Edit"),
                           ),
@@ -165,5 +167,10 @@ class _UserListPageState extends State<UserListPage> {
 
   void deleteTheCurrentUser(User user) => mUserBloc.add(DeleteUserEvent(user));
 
+
+  void goToEditPage(User user) => Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => UserEditPage(user: user)),
+  );
 
 }

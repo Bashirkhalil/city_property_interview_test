@@ -33,3 +33,10 @@ class UserCreateSuccessState extends UserState {
   String msg ;
   UserCreateSuccessState({required this.msg});
 }
+
+//  user update success
+//------------------------------------------------------------
+class UserUpdatedSuccessState extends UserState {
+  String msg ;
+  UserUpdatedSuccessState({required this.msg});
+}
